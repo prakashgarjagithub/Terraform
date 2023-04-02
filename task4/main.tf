@@ -17,26 +17,6 @@ resource "aws_subnet" "subnets" {
     Name = var.vpc_details.vpc_subnet_names[count.index]
   }
 }
-
-resource "aws_instance" "terraform" {
-  ami           = data.aws_ami.terraform.id
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "ec2"
-  }
-}
-
-
-
-
-
-
-
-
-
-
-############################################
 resource "aws_internet_gateway" "mygate" {
   vpc_id = aws_vpc.terraform.id
   tags = {
@@ -52,6 +32,10 @@ resource "aws_route_table" "mytable" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.mygate.id
   }
+}
 
+resource "aws_route_table_association" "table_assoc" {
+  
+  
 }
 
