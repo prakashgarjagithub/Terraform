@@ -1,15 +1,59 @@
 resource "aws_vpc" "ntier" {
-  cidr_block = "192.168.0.0/16"
+  cidr_block = var.ntier_vpc_range
   tags = {
     Name = "ntier"
   }
 }
 
-resource "aws_subnet" "ntier" {
-    vpc_id = aws_vpc.ntier.id
-    cidr_block = ["192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24", "192.168.4.0/24", "192.168.5.0/24","192.168.6.0/24"] 
-    tags = {
-      Name = "ntier"
-    }
+resource "aws_subnet" "app1" {
+  cidr_block        = var.ntier-app1-cidr
+  availability_zone = "${var.region}a"
+  vpc_id            = aws_vpc.ntier.id
+  tags = {
+    Name = "app1"
+  }
+  depends_on = [
+    aws_vpc.ntier
+  ]
 }
+
+resource "aws_subnet" "app2" {
+  cidr_block        = var.ntier-app2-cidr
+  availability_zone = "${var.region}b"
+  vpc_id            = aws_vpc.ntier.id
+  tags = {
+    Name = "app2"
+  }
+  depends_on = [
+    aws_vpc.ntier
+  ]
+}
+
+
+resource "aws_subnet" "db1" {
+  cidr_block        = var.ntier-db1-cidr
+  availability_zone = "${var.region}a"
+  vpc_id            = aws_vpc.ntier.id
+  tags = {
+    Name = "db1"
+  }
+  depends_on = [
+    aws_vpc.ntier
+  ]
+}
+
+resource "aws_subnet" "db2" {
+  cidr_block        = var.ntier-db2-cidr
+  availability_zone = "${var.region}b"
+  vpc_id            = aws_vpc.ntier.id
+  tags = {
+    Name = "db2"
+  }
+  depends_on = [
+    aws_vpc.ntier
+  ]
+}
+
+
+
 
