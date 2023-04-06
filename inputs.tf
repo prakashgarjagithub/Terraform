@@ -3,6 +3,7 @@ variable "region" {
   default     = "us-east-1"
   description = "creating a region"
 }
+# this is terraform
 
 variable "ntier_vpc_range" {
   type        = string
