@@ -4,7 +4,6 @@ data "aws_security_group" "launch-wizard-3" {
 data "aws_key_pair" "jenkins" {
   key_name           = "jenkins"
   include_public_key = true
-
 }
 resource "aws_instance" "myansible" {
   ami                         = "ami-06e46074ae430fba6"
